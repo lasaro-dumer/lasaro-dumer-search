@@ -100,7 +100,7 @@ cell0x(height-1) ... cell(width-1)x(height-1)
 Unfortunately, some things do not work as expected on Python 3.4 (so we do not recommend using it):
 
 - prints require parenthesis ```print("Hello")```.
-- Queue does not need to be imported, comment line ```import Queue``` from file pathfinder.py.
+- the Queue package does not need to be imported, so you need to comment out line ```import Queue``` from [pathfinder.py](pathfinder.py) file.
 
 ## Hand in
 To facilitate your the process of handing in your code, we have included a python program called [zipper.py](zipper.py) that creates this zip file for you, in the correct format. Use it to create your deliverable package.
