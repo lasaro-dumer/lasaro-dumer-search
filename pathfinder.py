@@ -88,8 +88,8 @@ class PathFinder_A_Star:
                 self.path = [direction(last[0],last[1],present[0], present[1])]
             else:
                 #self.path = self.path.insert(0,present[5])
-                #self.path = self.path.insert(0,direction(last[0],last[1],present[0], present[1]))
-                self.path = [direction(last[0],last[1],present[0], present[1])] + self.path
+                self.path.insert(0,direction(last[0],last[1],present[0], present[1]))
+                #self.path = [direction(last[0],last[1],present[0], present[1])] + self.path
             present=last
 
         if DEBUG:
@@ -148,14 +148,17 @@ if __name__ == '__main__':
         print "No plan was found"
     else:
         print "Plan found:"
-        for i, move in enumerate(plan):
-            if move == MOVE_UP:
-                print i, ": Move Up"
-            elif move == MOVE_DOWN:
-                print i, ": Move Down"
-            elif move == MOVE_LEFT:
-                print i, ": Move Left"
-            elif move == MOVE_RIGHT:
-                print i, ": Move Right"
-            else:
-                print i, ": Movement unknown = ", move
+        if DEBUG:
+            print 'Plan lenght=',len(plan)
+        else:
+            for i, move in enumerate(plan):
+                if move == MOVE_UP:
+                    print i, ": Move Up"
+                elif move == MOVE_DOWN:
+                    print i, ": Move Down"
+                elif move == MOVE_LEFT:
+                    print i, ": Move Left"
+                elif move == MOVE_RIGHT:
+                    print i, ": Move Right"
+                else:
+                    print i, ": Movement unknown = ", move
