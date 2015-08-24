@@ -87,7 +87,7 @@ class PathFinder_A_Star:
                 #self.path = [present[5]]
                 self.path = [direction(last[0],last[1],present[0], present[1])]
             else:
-                #self.path = self.path.insert(0,present[5])
+                #self.path.insert(0,present[5])
                 self.path.insert(0,direction(last[0],last[1],present[0], present[1]))
                 #self.path = [direction(last[0],last[1],present[0], present[1])] + self.path
             present=last
@@ -143,13 +143,22 @@ if __name__ == '__main__':
         map_name = DEFAULT_MAP
     print "Loading map: " + map_name
     sx, sy, gx, gy, map_data, map_width, map_height = read_map(map_name)
-    plan = PathFinder_A_Star().solve(sx, sy, gx, gy, map_data, map_width, map_height)
+    solver = PathFinder_A_Star();
+    plan = solver.solve(sx, sy, gx, gy, map_data, map_width, map_height)
+    if DEBUG:
+        solvable = solver.get_solvable(sx, sy, gx, gy, map_data, map_width, map_height)
+        maxTreeH = solver.get_max_tree_height(sx, sy, gx, gy, map_data, map_width, map_height)
+        minMoves = solver.get_min_moves(sx, sy, gx, gy, map_data, map_width, map_height)
+        print 'Solvable=',solvable
+        print 'MaxTreeH=',maxTreeH
+        print 'MinMoves=',minMoves
+
     if plan == None:
         print "No plan was found"
     else:
         print "Plan found:"
         if DEBUG:
-            print 'Plan lenght=',len(plan)
+            print 'Plan length=',len(plan)
         else:
             for i, move in enumerate(plan):
                 if move == MOVE_UP:
