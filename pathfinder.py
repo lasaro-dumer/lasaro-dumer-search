@@ -38,12 +38,13 @@ class PathFinder_A_Star:
             start_time = time.time()
 
         closedset = {}
+        #start and goal search nodes, the names are formalized 'x_y' for indexation
         start = (sx,sy,str(sx)+'_'+str(sy),0)
         goal = (gx, gy,str(gx)+'_'+str(gy),float("inf"))
         openset = {start[2]:start}
 
         knows = {}
-        knows[start[2]] = start
+        knows[start[2]] = start #we only know start for now
 
         scoredQueue = Queue.PriorityQueue()
         scoredQueue.put((start[3] + self.heuristic(start[0],start[1], goal[0],goal[1]),start))
@@ -65,13 +66,18 @@ class PathFinder_A_Star:
                 if succ[2] in closedset:
                     continue
                 if succ[2] in knows:
+                    #if succ is a already known search node, get it
                     succ = knows[succ[2]]
                 else:
+                    #else, the cost to get to it is infinite and have no previous node
                     succ = succ + (float("inf"),);
+
                 guess = current[3] + self.get_cost(current[0],current[1],succ[0],succ[1])
 
                 if succ[2] not in openset or guess < succ[3]:
+                    #now we know everything abou succ, put it in the dictionary
                     knows[succ[2]] = (succ[0],succ[1],succ[2],guess,current)#,direction(succ[0],succ[1],current[0], current[1]))
+                    #and put it in the priority queue too
                     scoredQueue.put((succ[3] + self.heuristic(succ[0],succ[1], goal[0],goal[1]),knows[succ[2]]))
                     if succ[2] not in openset:
                         openset[succ[2]] = succ
@@ -80,8 +86,11 @@ class PathFinder_A_Star:
         if DEBUG:
             AStar_time = time.time() - start_time
             print 'AStar_time  =',AStar_time
+
+        #reconstructing the path, backwards
         present = goal
         while len(present) > 4:
+            #present[4] is the previous state from present (or the 'last' before it)
             last = present[4]
             if self.path == None or len(self.path)==0:
                 #self.path = [present[5]]
@@ -95,6 +104,7 @@ class PathFinder_A_Star:
         if DEBUG:
             elapsed_time = time.time() - start_time
             print 'elapsed_time=',elapsed_time
+
         return self.path
 
     # ------------------------------------------
@@ -153,7 +163,7 @@ if __name__ == '__main__':
         print 'MaxTreeH=',maxTreeH
         print 'MinMoves=',minMoves
 
-    if plan == None:
+    if plan == None or len(plan) == 0:
         print "No plan was found"
     else:
         print "Plan found:"
