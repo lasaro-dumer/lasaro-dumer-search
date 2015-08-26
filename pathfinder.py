@@ -12,6 +12,7 @@ class PathFinder_A_Star:
 
     def __init__(self):
         self.path = None
+        self.searchNodes = None
         pass
 
     # ------------------------------------------
@@ -56,7 +57,8 @@ class PathFinder_A_Star:
                 goal = current
                 break
 
-            del openset[current[2]]
+            if current[2] in openset:
+                del openset[current[2]]
             closedset[current[2]]=current
 
             succs = successors(current[0],current[1], map_data, map_width, map_height)
@@ -82,6 +84,7 @@ class PathFinder_A_Star:
                     if succ[2] not in openset:
                         openset[succ[2]] = succ
 
+        self.searchNodes = knows
         self.path = []
         if DEBUG:
             AStar_time = time.time() - start_time
@@ -131,6 +134,14 @@ class PathFinder_A_Star:
 
     def get_max_tree_height(self, sx = None, sy = None, gx = None, gy = None, map_data = None, map_width = None, map_height = None):
         # TODO return max tree height if plan found, otherwise None
+        if self.searchNodes != None:
+            maxFound = -1
+            for key,node in self.searchNodes.items():
+                if len(node) > 3:
+                    if node[3] > maxFound:
+                        maxFound = node[3]
+            if maxFound > -1:
+                return maxFound
         return self.get_min_moves(sx,sy,gx,gy,map_data,map_width,map_height) #is that?
 
     # ------------------------------------------
