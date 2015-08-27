@@ -80,7 +80,8 @@ class PathFinder_A_Star:
                     #now we know everything abou succ, put it in the dictionary
                     knows[succ[2]] = (succ[0],succ[1],succ[2],guess,current)#,direction(succ[0],succ[1],current[0], current[1]))
                     #and put it in the priority queue too
-                    scoredQueue.put((succ[3] + self.heuristic(succ[0],succ[1], goal[0],goal[1]),knows[succ[2]]))
+                    toQueue = (guess + self.heuristic(succ[0],succ[1], goal[0],goal[1]),knows[succ[2]])
+                    scoredQueue.put(toQueue)
                     if succ[2] not in openset:
                         openset[succ[2]] = succ
 
