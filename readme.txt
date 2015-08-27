@@ -32,8 +32,9 @@ search_node[4] = the node that reached this at the cost of [3]
 /**********************************************************************
  *  Explain briefly how you detected unsolvable problems.
  **********************************************************************/
-
-
+The basic detection was implemented looking the number of successors that the Player's start position and goal's position have
+The more generic one is based if the algorithm was already executed, if it was and haven't found a path, then it's not solvable
+The more little more 'off the box' is explained in the next question about solvable maps
 
 
 
@@ -44,7 +45,8 @@ search_node[4] = the node that reached this at the cost of [3]
  * function (say, one on the order of improvement from Hamming to
  * Manhattan)? Why?
  **********************************************************************/
-
+More time, because the reconstructions of the path is a little time consuming, for example,
+a 500x500 grid it takes around 5 seconds to find a path, to reconstruct it takes 15 seconds
 
 
 
@@ -55,7 +57,9 @@ search_node[4] = the node that reached this at the cost of [3]
  *  state the order of growth of the running time (in the worst case)
  *  for isSolvable().
  **********************************************************************/
-
+ So, a more 'off the box' approach that I used was simple:
+ if the map has less tiles to move that what the heuristic tells, then it's unsolvable
+ Of course that it didn't covers all the possibilities, but will suffice a bunch
 
 
 
@@ -79,7 +83,7 @@ search_node[4] = the node that reached this at the cost of [3]
 /**********************************************************************
  *  Describe any serious problems you encountered.
  **********************************************************************/
-
+Have deleted, unwilling, the previous semester's code
 
 
 
@@ -88,3 +92,5 @@ search_node[4] = the node that reached this at the cost of [3]
  *  on how much you learned from doing the assignment, and whether
  *  you enjoyed doing it.
  **********************************************************************/
+Regardless of the incident with previous semester's code, this one seems pretty much better,
+I think that the final result is actually much faster than the previous semester

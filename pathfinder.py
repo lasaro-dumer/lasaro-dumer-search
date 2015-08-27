@@ -13,6 +13,7 @@ class PathFinder_A_Star:
     def __init__(self):
         self.path = None
         self.searchNodes = None
+        self.searched = False
         pass
 
     # ------------------------------------------
@@ -37,6 +38,9 @@ class PathFinder_A_Star:
         if DEBUG:
             import time
             start_time = time.time()
+
+        if not self.get_solvable(sx, sy, gx, gy, map_data, map_width, map_height,True):
+            return []
 
         closedset = {}
         #start and goal search nodes, the names are formalized 'x_y' for indexation
@@ -109,13 +113,15 @@ class PathFinder_A_Star:
             elapsed_time = time.time() - start_time
             print 'elapsed_time=',elapsed_time
 
+        self.searched = True
+
         return self.path
 
     # ------------------------------------------
     # Get solvable
     # ------------------------------------------
 
-    def get_solvable(self, sx = None, sy = None, gx = None, gy = None, map_data = None, map_width = None, map_height = None):
+    def get_solvable(self, sx = None, sy = None, gx = None, gy = None, map_data = None, map_width = None, map_height = None,firstTime = False):
         beforeGoal = successors(sx,sy, map_data, map_width, map_height)
         if len(beforeGoal) == 0:
             return False
@@ -124,7 +130,21 @@ class PathFinder_A_Star:
         if len(afterStart) == 0:
             return False
 
-        if self.path != None or len(self.path) > 0:
+        if firstTime:
+            return True
+
+        clears = 0
+        for y in range(map_height):
+            for x in range(map_width):
+                cell = map_data[y][x]
+                if cell == TILE_CLEAR:
+                    clears = clears + 1                    
+        print 'clear count:',clears
+        if clears < self.heuristic(sx,sy,gx,gy):
+            print 'less tiles that needed'
+            return False
+
+        if self.searched and self.path != None or len(self.path) > 0:
             return True
         else:
             return False

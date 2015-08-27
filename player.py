@@ -36,7 +36,17 @@ class Player:
     def setup(self, sx, sy, gx, gy, map_data, map_width, map_height):
         self.x = sx * TILE_WIDTH
         self.y = sy * TILE_HEIGHT - self.diff_height
-        self.route = PathFinder_A_Star().solve(sx, sy, gx, gy, map_data, map_width, map_height)
+        if DEBUG:
+            solver = PathFinder_A_Star();
+            self.route = solver.solve(sx, sy, gx, gy, map_data, map_width, map_height)
+            solvable = solver.get_solvable(sx, sy, gx, gy, map_data, map_width, map_height)
+            maxTreeH = solver.get_max_tree_height(sx, sy, gx, gy, map_data, map_width, map_height)
+            minMoves = solver.get_min_moves(sx, sy, gx, gy, map_data, map_width, map_height)
+            print 'Solvable=',solvable
+            print 'MaxTreeH=',maxTreeH
+            print 'MinMoves=',minMoves
+        else:
+            self.route = PathFinder_A_Star().solve(sx, sy, gx, gy, map_data, map_width, map_height)
         self.action = None
 
     # ------------------------------------------
