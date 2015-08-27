@@ -75,9 +75,8 @@ a 500x500 grid it takes around 5 seconds to find a path, to reconstruct it takes
  *  include any help from people (including staff, classmates, and
  *  friends) and attribute them by name.
  **********************************************************************/
-
-
-
+I and some classmates shared map files and compared our times, and talked about general stuff, like data structures
+That classmates are João Pedro Chagas and Marcelo Lazer
 
 
 /**********************************************************************
