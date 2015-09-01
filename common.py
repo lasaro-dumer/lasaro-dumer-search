@@ -4,7 +4,7 @@ import os, inspect
 
 PATH        = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 DEFAULT_MAP = "easy.txt"
-DEBUG       = False
+DEBUG       = True
 # Frames per second (more means faster)
 FPS         = 30
 # Image files
@@ -19,7 +19,7 @@ TILE_CLEAR  = 0
 TILE_CLOSED = 1
 TILE_GOAL   = 2
 # Tileset (pixels of image)
-ZOOM        = 2
+ZOOM        = 1
 TILE_WIDTH  = 16 * ZOOM
 TILE_HEIGHT = 16 * ZOOM
 # Player (directions in the image)
@@ -28,7 +28,7 @@ MOVE_LEFT   = 1
 MOVE_UP     = 2
 MOVE_DOWN   = 3
 # Pixels per frame, must match tile size (TILE_WIDTH % MOVE_SPEED == 0 and TILE_HEIGHT % MOVE_SPEED == 0)
-MOVE_SPEED  = 4 * ZOOM
+MOVE_SPEED  = 8 * ZOOM
 
 # ------------------------------------------
 # Read map
